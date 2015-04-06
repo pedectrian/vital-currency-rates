@@ -38,7 +38,7 @@ class VitalCurrencyRates {
             $eur['currency'] .
           "</div>" .
           "<div class='vc-rates-value'>" .
-          number_format($eur['value'], 2, '.', '') .
+          $this->numberFormat($eur['value']) .
           "</div>" .
         "</div>" .
         "<div class='vc-rates-usd'>" .
@@ -46,7 +46,7 @@ class VitalCurrencyRates {
             $usd['currency'] .
           "</div>" .
           "<div class='vc-rates-value'>" .
-          number_format($usd['value'], 2, '.', '') .
+          $this->numberFormat($usd['value']) .
           "</div>" .
         "</div>" .
         "<div class='vc-rates-oil'>" .
@@ -54,12 +54,17 @@ class VitalCurrencyRates {
             'Нефть' .
           "</div>" .
           "<div class='vc-rates-value'>" .
-          number_format($oil['value'], 2, '.', '') .
+          $this->numberFormat($oil['value']) .
           "</div>" .
         "</div>" .
       "</div>";
 
     return $html;
+  }
+
+  protected function numberFormat($value) {
+    $value = str_replace(',', '.', $value);
+    return number_format($value, 2, '.', '');
   }
 }
 
