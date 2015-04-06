@@ -21,6 +21,9 @@ class VitalCurrencyRates {
   {
     add_filter('widget_text', 'do_shortcode');
     add_shortcode( 'vital_currency_rates', array( $this, 'vitalCurrencyRatesShortcode' ) );
+
+    wp_register_style( 'vital-currency-rates.css', plugins_url('inc/vital-currency-rates.css', __FILE__), array(), '0.0.1' );
+    wp_enqueue_style( 'vital-currency-rates.css' );
   }
   public function vitalCurrencyRatesShortcode()
   {
@@ -31,30 +34,28 @@ class VitalCurrencyRates {
   }
 
   public function renderData($eur, $usd, $oil) {
+    $oilDirection = $oil['diff'] > 0 ? "up" : 'down';
+
     $html =
       "<div class='vcrates-wrapper'>" .
-        "<div class='vc-rates-eur'>" .
-          "<div class='vc-rates-label'>" .
-            $eur['currency'] .
-          "</div>" .
-          "<div class='vc-rates-value'>" .
-          $this->numberFormat($eur['value']) .
+        "<div class='vc-rates eur'>" .
+          "<div class='vc-rates-label'>&#8364;</div>" .
+          "<div class='vc-rates-value'> " .
+            $this->numberFormat($eur['value']) .
           "</div>" .
         "</div>" .
-        "<div class='vc-rates-usd'>" .
-          "<div class='vc-rates-label'>" .
-            $usd['currency'] .
-          "</div>" .
+        "<div class='vc-rates usd'>" .
+          "<div class='vc-rates-label'>&#36; </div>" .
           "<div class='vc-rates-value'>" .
-          $this->numberFormat($usd['value']) .
+            $this->numberFormat($usd['value']) .
           "</div>" .
         "</div>" .
-        "<div class='vc-rates-oil'>" .
+        "<div class='vc-rates oil'>" .
           "<div class='vc-rates-label'>" .
-            'Нефть' .
+            'Нефть&nbsp;' .
           "</div>" .
           "<div class='vc-rates-value'>" .
-          $this->numberFormat($oil['value']) .
+            $this->numberFormat($oil['value']) . '<span class="vc-rates-' . $oilDirection .'">' . $this->numberFormat($oil['diff']) . '</span>' .
           "</div>" .
         "</div>" .
       "</div>";
@@ -64,7 +65,7 @@ class VitalCurrencyRates {
 
   protected function numberFormat($value) {
     $value = str_replace(',', '.', $value);
-    return number_format($value, 2, '.', '');
+    return number_format((float)$value, 2, '.', '');
   }
 }
 

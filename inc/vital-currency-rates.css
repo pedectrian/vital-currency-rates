@@ -1,0 +1,28 @@
+.vc-rates-label,
+.vc-rates-value,
+.vc-rates {
+  display: inline-block;
+}
+
+.vc-rates {
+  margin-right: 10px;
+}
+
+.vc-rates-value {
+  font-size: 18px;
+}
+
+.vc-rates-up {
+  color: green;
+}
+.vc-rates-up:before {
+  content: "\2191";
+}
+
+
+.vc-rates-down {
+  color: red;
+}
+.vc-rates-down:before {
+  content: '\2193';
+}
