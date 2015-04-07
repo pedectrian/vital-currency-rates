@@ -8,6 +8,10 @@
   margin-right: 10px;
 }
 
+.vc-rates-label {
+  margin-right: 3px;
+}
+
 .vc-rates-value {
   font-size: 18px;
 }
