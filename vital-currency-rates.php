@@ -84,7 +84,7 @@ add_action( 'widgets_init', function () {
 
 add_action( 'init', 'register_moexrate_script' );
 function register_moexrate_script() {
-	var_dump(moex_update2());
+	moex_update2();
 	add_shortcode( 'vital_currency_rates', 'vitalCurrencyRatesShortcode' );
 
 	wp_register_style( 'moex_style', plugins_url( 'style.css', __FILE__ ), false, '1.0.0', 'all' );
@@ -123,23 +123,31 @@ class Moex_Widget extends WP_Widget {
 		}//"data empty ";
 		else {
 
-			echo '
-		  <div id="currency">
-			<div class="itemmoex">
-				<div class="moexname"><img width="25" height="30" border="0" alt="USD" src="' . WP_PLUGIN_URL . '/moexrate/img/dollar.png"></div>
-				<div class="moexvalue">' . $currency['USDRUB']['price'] . '</div>
-				<div class="moexdif"><img width="9" height="9" src="' . WP_PLUGIN_URL . '/moexrate/img/' . ( $currency['USDRUB']['delta'] > 0 ? 'up' : 'dn' ) . '.gif"><span style="font-size:12px;color:' . ( $currency['USDRUB']['delta'] > 0 ? 'green' : 'red' ) . '">' . $currency['USDRUB']['delta'] . '</span></div>
-			</div>
-			<div class="itemmoex">
-				<div class="moexname"><img width="25" height="32" border="0" alt="EUR" src="' . WP_PLUGIN_URL . '/moexrate/img/euro.png"></div>
-				<div class="moexvalue">' . $currency['EURRUB']['price'] . '</div>
-				<div class="moexdif"><img width="9" height="9" src="' . WP_PLUGIN_URL . '/moexrate/img/' . ( $currency['EURRUB']['delta'] > 0 ? 'up' : 'dn' ) . '.gif"><span style="font-size:12px;color:' . ( $currency['EURRUB']['delta'] > 0 ? 'green' : 'red' ) . '">' . $currency['EURRUB']['delta'] . '</span></div>
-			</div>
-			' . ( $currency['USDRUB']['price'] ? '
-			<div class="moexlegend">Курс МБ на ' . date( "H:i:s", $currency['USDRUB']['time'] ) . '</div>
-			' : '' ) . '
-		  </div>
-			';
+			$html =
+				"<div class='vcrates-wrapper'>" .
+				"<div class='vc-rates usd'>" .
+				"<div class='vc-rates-label'>&#8364;</div>" .
+				"<div class='vc-rates-value'> " .
+				$currency['USDRUB']['price'] . '<span class="vc-rates-' . ( $currency['USDRUB']['delta'] > 0 ? 'up' : 'downn' ) . '">' .
+				"</div>" .
+				"</div>" .
+				"<div class='vc-rates eur'>" .
+				"<div class='vc-rates-label'>&#36; </div>" .
+				"<div class='vc-rates-value'>" .
+				$currency['EURRUB']['price'] . '<span class="vc-rates-' . ( $currency['EURRUB']['delta'] > 0 ? 'up' : 'dn' ) . '">' .
+				"</div>" .
+				"</div>" .
+				"<div class='vc-rates oil'>" .
+				"<div class='vc-rates-label'>" .
+				'Нефть' .
+				"</div>" .
+				"<div class='vc-rates-value'>" .
+				//					$this->numberFormat($oil['value']) . '<span class="vc-rates-' . $oilDirection . '">' . $this->numberFormat($oil['diff']) . '</span>' .
+				"</div>" .
+				"</div>" .
+				"</div>";
+
+			echo $html;
 		}
 	}
 }
@@ -159,23 +167,48 @@ function vitalCurrencyRatesShortcode() {
 	}//"data empty ";
 	else {
 
-		return '
-		  <div id="currency">
-			<div class="itemmoex">
-				<div class="moexname"><img width="25" height="30" border="0" alt="USD" src="' . WP_PLUGIN_URL . '/moexrate/img/dollar.png"></div>
-				<div class="moexvalue">' . $currency['USDRUB']['price'] . '</div>
-				<div class="moexdif"><img width="9" height="9" src="' . WP_PLUGIN_URL . '/moexrate/img/' . ( $currency['USDRUB']['delta'] > 0 ? 'up' : 'dn' ) . '.gif"><span style="font-size:12px;color:' . ( $currency['USDRUB']['delta'] > 0 ? 'green' : 'red' ) . '">' . $currency['USDRUB']['delta'] . '</span></div>
-			</div>
-			<div class="itemmoex">
-				<div class="moexname"><img width="25" height="32" border="0" alt="EUR" src="' . WP_PLUGIN_URL . '/moexrate/img/euro.png"></div>
-				<div class="moexvalue">' . $currency['EURRUB']['price'] . '</div>
-				<div class="moexdif"><img width="9" height="9" src="' . WP_PLUGIN_URL . '/moexrate/img/' . ( $currency['EURRUB']['delta'] > 0 ? 'up' : 'dn' ) . '.gif"><span style="font-size:12px;color:' . ( $currency['EURRUB']['delta'] > 0 ? 'green' : 'red' ) . '">' . $currency['EURRUB']['delta'] . '</span></div>
-			</div>
-			' . ( $currency['USDRUB']['price'] ? '
-			<div class="moexlegend">Курс МБ на ' . date( "H:i:s", $currency['USDRUB']['time'] ) . '</div>
-			' : '' ) . '
-		  </div>
-			';
+//		return '
+//		  <div id="currency">
+//			<div class="itemmoex">
+//				<div class="moexname"><img width="25" height="30" border="0" alt="USD" src="' . WP_PLUGIN_URL . '/moexrate/img/dollar.png"></div>
+//				<div class="moexvalue">' . $currency['USDRUB']['price'] . '</div>
+//				<div class="moexdif"><img width="9" height="9" src="' . WP_PLUGIN_URL . '/moexrate/img/' . ( $currency['USDRUB']['delta'] > 0 ? 'up' : 'dn' ) . '.gif"><span style="font-size:12px;color:' . ( $currency['USDRUB']['delta'] > 0 ? 'green' : 'red' ) . '">' . $currency['USDRUB']['delta'] . '</span></div>
+//			</div>
+//			<div class="itemmoex">
+//				<div class="moexname"><img width="25" height="32" border="0" alt="EUR" src="' . WP_PLUGIN_URL . '/moexrate/img/euro.png"></div>
+//				<div class="moexvalue">' . $currency['EURRUB']['price'] . '</div>
+//				<div class="moexdif"><img width="9" height="9" src="' . WP_PLUGIN_URL . '/moexrate/img/' . ( $currency['EURRUB']['delta'] > 0 ? 'up' : 'dn' ) . '.gif"><span style="font-size:12px;color:' . ( $currency['EURRUB']['delta'] > 0 ? 'green' : 'red' ) . '">' . $currency['EURRUB']['delta'] . '</span></div>
+//			</div>
+//			' . ( $currency['USDRUB']['price'] ? '
+//			<div class="moexlegend">Курс МБ на ' . date( "H:i:s", $currency['USDRUB']['time'] ) . '</div>
+//			' : '' ) . '
+//		  </div>
+//			';
+		$html =
+			"<div class='vcrates-wrapper'>" .
+				"<div class='vc-rates usd'>" .
+					"<div class='vc-rates-label'>&#8364;</div>" .
+					"<div class='vc-rates-value'> " .
+						$currency['USDRUB']['price'] . '<span class="vc-rates-' . ( $currency['USDRUB']['delta'] > 0 ? 'up' : 'downn' ) . '">' .
+					"</div>" .
+				"</div>" .
+				"<div class='vc-rates eur'>" .
+					"<div class='vc-rates-label'>&#36; </div>" .
+					"<div class='vc-rates-value'>" .
+						$currency['EURRUB']['price'] . '<span class="vc-rates-' . ( $currency['EURRUB']['delta'] > 0 ? 'up' : 'dn' ) . '">' .
+					"</div>" .
+				"</div>" .
+				"<div class='vc-rates oil'>" .
+					"<div class='vc-rates-label'>" .
+					'Нефть' .
+					"</div>" .
+					"<div class='vc-rates-value'>" .
+//					$this->numberFormat($oil['value']) . '<span class="vc-rates-' . $oilDirection . '">' . $this->numberFormat($oil['diff']) . '</span>' .
+					"</div>" .
+				"</div>" .
+			"</div>";
+
+		return $html;
 	}
 }
 
