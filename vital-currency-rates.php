@@ -115,13 +115,13 @@ class Moex_Widget extends WP_Widget {
 			$currency[ $mm[1] ]['delta'] = moex_cache_get( $mm[1] . "_delta" );
 			$currency[ $mm[1] ]['time']  = moex_cache_get( $mm[1] . "_time" );
 		}
-		die('asdf');
+
 		if ( empty( $currency['USDRUB']['price'] ) ) {
-			return "1111";
+			echo "1111";
 		}//"data empty ";
 		else {
 
-			return '
+			echo '
 		  <div id="currency">
 			<div class="itemmoex">
 				<div class="moexname"><img width="25" height="30" border="0" alt="USD" src="' . WP_PLUGIN_URL . '/moexrate/img/dollar.png"></div>
@@ -153,7 +153,7 @@ function vitalCurrencyRatesShortcode() {
 	}
 
 	if ( empty( $currency['USDRUB']['price'] ) ) {
-		return "";
+		return "111";
 	}//"data empty ";
 	else {
 
