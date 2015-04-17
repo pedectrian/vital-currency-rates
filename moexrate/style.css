@@ -1,0 +1,24 @@
+.itemmoex{
+    float: left;
+    padding: 10px;
+}
+.moexname {
+    float:left;
+}
+.moexvalue {
+    float: left;
+    font-size: 24px;
+    line-height: 30px;
+    margin-left: 10px;
+}
+.moexdif {
+    float: left;
+    clear: left;
+    margin-left: 40px;
+}
+.moexlegend {
+    clear: left;
+    font-size: 12px;
+    color:#999;
+    margin: 0 0 3px 46px;
+}
