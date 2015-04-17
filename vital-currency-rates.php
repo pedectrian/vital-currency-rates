@@ -117,11 +117,11 @@ class Moex_Widget extends WP_Widget {
 		}
 
 		if ( empty( $currency['USDRUB']['price'] ) ) {
-			echo "1111";
+			return "1111";
 		}//"data empty ";
 		else {
 
-			echo '
+			return '
 		  <div id="currency">
 			<div class="itemmoex">
 				<div class="moexname"><img width="25" height="30" border="0" alt="USD" src="' . WP_PLUGIN_URL . '/moexrate/img/dollar.png"></div>
