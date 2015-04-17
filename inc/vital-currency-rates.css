@@ -13,7 +13,7 @@
 }
 
 .vc-rates-value {
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .vc-rates-up {
@@ -23,6 +23,7 @@
   background-position: 0px 0px;
   background-image: url("./img/icons.png");
   background-repeat: no-repeat;
+  margin: 0 0 2px 2px;
 }
 .vc-rates-oil {
   display: inline-block;
@@ -38,6 +39,7 @@
   width: 12px;
   height: 8px;
   background-position: 0px -18px;
-  background-image: url("../img/icons.png");
+  background-image: url("./img/icons.png");
   background-repeat: no-repeat;
+  margin: 0 0 2px 2px;
 }
