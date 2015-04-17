@@ -117,7 +117,7 @@ class Moex_Widget extends WP_Widget {
 		}
 
 		if ( empty( $currency['USDRUB']['price'] ) ) {
-			echo "";
+			echo "1111";
 		}//"data empty ";
 		else {
 
