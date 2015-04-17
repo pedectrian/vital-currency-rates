@@ -77,6 +77,7 @@ add_action( 'widgets_init', function () {
 
 add_action( 'init', 'register_moexrate_script' );
 function register_moexrate_script() {
+	add_shortcode( 'vital_currency_rates1', 'vitalCurrencyRatesShortcode' );
 	wp_register_style( 'moex_style', plugins_url( 'style.css', __FILE__ ), false, '1.0.0', 'all' );
 }
 
@@ -133,7 +134,6 @@ class Moex_Widget extends WP_Widget {
 		}
 	}
 }
-add_shortcode( 'vital_currency_rates1', 'vitalCurrencyRatesShortcode' );
 function vitalCurrencyRatesShortcode() {
 	$currency = array();
 
@@ -146,11 +146,11 @@ function vitalCurrencyRatesShortcode() {
 	}
 
 	if ( empty( $currency['USDRUB']['price'] ) ) {
-		echo "";
+		return "";
 	}//"data empty ";
 	else {
 
-		echo '
+		return '
 		  <div id="currency">
 			<div class="itemmoex">
 				<div class="moexname"><img width="25" height="30" border="0" alt="USD" src="' . WP_PLUGIN_URL . '/moexrate/img/dollar.png"></div>
