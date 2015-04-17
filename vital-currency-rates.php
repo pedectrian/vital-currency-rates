@@ -85,6 +85,10 @@ add_action( 'widgets_init', function () {
 add_action( 'init', 'register_moexrate_script' );
 function register_moexrate_script() {
 	add_shortcode( 'vital_currency_rates', 'vitalCurrencyRatesShortcode' );
+	$schedule = wp_get_schedule( 'moexrate_hourly_event' );
+
+	var_dump($schedule);die;
+
 	wp_register_style( 'moex_style', plugins_url( 'style.css', __FILE__ ), false, '1.0.0', 'all' );
 }
 
