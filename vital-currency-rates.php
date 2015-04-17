@@ -133,7 +133,7 @@ class Moex_Widget extends WP_Widget {
 		}
 	}
 }
-add_shortcode( 'vital_currency_rates', 'vitalCurrencyRatesShortcode' );
+add_shortcode( 'vital_currency_rates1', 'vitalCurrencyRatesShortcode' );
 function vitalCurrencyRatesShortcode() {
 	$currency = array();
 
