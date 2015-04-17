@@ -135,7 +135,22 @@ class Moex_Widget extends WP_Widget {
 }
 add_shortcode( 'vital_currency_rates', 'vitalCurrencyRatesShortcode' );
 function vitalCurrencyRatesShortcode() {
-	$html = '
+	$currency = array();
+
+	$codes = array( 'USDRUB_TOM', 'EURRUB_TOM', 'EURRUB_TOD', 'USDRUB_TOD' );
+	foreach ( $codes as $code ) {
+		preg_match( "|([\w]+)_([\w]+)|i", $code, $mm );
+		$currency[ $mm[1] ]['price'] = moex_cache_get( $mm[1] . "_price" );
+		$currency[ $mm[1] ]['delta'] = moex_cache_get( $mm[1] . "_delta" );
+		$currency[ $mm[1] ]['time']  = moex_cache_get( $mm[1] . "_time" );
+	}
+
+	if ( empty( $currency['USDRUB']['price'] ) ) {
+		echo "";
+	}//"data empty ";
+	else {
+
+		echo '
 		  <div id="currency">
 			<div class="itemmoex">
 				<div class="moexname"><img width="25" height="30" border="0" alt="USD" src="' . WP_PLUGIN_URL . '/moexrate/img/dollar.png"></div>
@@ -152,8 +167,7 @@ function vitalCurrencyRatesShortcode() {
 			' : '' ) . '
 		  </div>
 			';
-
-	return $html;
+	}
 }
 
 add_action( 'parse_request', 'moexrate_custom_url_handler' );
