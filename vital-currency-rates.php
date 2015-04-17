@@ -1,4 +1,11 @@
 <?php
+/**
+ * Plugin Name: Vital currency rates.
+ * Version: 0.0.1
+ * Author: Alexander Permyakov
+ * Author URI: http://ready2dev.ru
+ * License: GPL2
+ */
 function moex_load2( $date1 ) {
 	$doc           = new DOMDocument();
 	$doc->encoding = "utf-8";
