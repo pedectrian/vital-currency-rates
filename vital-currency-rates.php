@@ -77,7 +77,7 @@ add_action( 'widgets_init', function () {
 
 add_action( 'init', 'register_moexrate_script' );
 function register_moexrate_script() {
-	add_shortcode( 'vital_currency_rates1', 'vitalCurrencyRatesShortcode' );
+	add_shortcode( 'vital_currency_rates', 'vitalCurrencyRatesShortcode' );
 	wp_register_style( 'moex_style', plugins_url( 'style.css', __FILE__ ), false, '1.0.0', 'all' );
 }
 
