@@ -17,16 +17,16 @@
 }
 
 .vc-rates-up {
-  color: green;
+  color: red;
 }
 .vc-rates-up:before {
-  content: "\2191";
+  content: " \2191 ";
 }
 
 
 .vc-rates-down {
-  color: red;
+  color: green;
 }
 .vc-rates-down:before {
-  content: '\2193';
+  content: ' \2193 ';
 }
