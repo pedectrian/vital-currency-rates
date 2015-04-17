@@ -17,9 +17,6 @@
 }
 
 .vc-rates-up {
-  color: red;
-}
-.vc-rates-up:before {
   display: inline-block;
   width: 12px;
   height: 8px;
@@ -37,9 +34,6 @@
 }
 
 .vc-rates-down {
-  color: green;
-}
-.vc-rates-down:before {
   display: inline-block;
   width: 12px;
   height: 8px;
