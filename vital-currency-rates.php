@@ -76,81 +76,15 @@ function moexrate_deactivation() {
 	wp_clear_scheduled_hook( 'moexrate_hourly_event' );
 }
 
-
-add_action( 'widgets_init', function () {
-	register_widget( 'MoEx_Widget' );
-} );
-
-
 add_action( 'init', 'register_moexrate_script' );
 function register_moexrate_script() {
 	moex_update2();
 	add_shortcode( 'vital_currency_rates', 'vitalCurrencyRatesShortcode' );
-
-	wp_register_style( 'moex_style', plugins_url( 'style.css', __FILE__ ), false, '1.0.0', 'all' );
+	wp_register_style( 'vital-currency-rates.css', plugins_url('inc/vital-currency-rates.css', __FILE__), array(), '0.0.1' );
+	wp_enqueue_style( 'vital-currency-rates.css' );
 }
 
-add_action( 'wp_enqueue_scripts', 'moex_enqueue_style' );
-function moex_enqueue_style() {
-	wp_enqueue_style( 'moex_style' );
-}
 
-class Moex_Widget extends WP_Widget {
-
-	function __construct() {
-		parent::__construct(
-			'moex_widget', // Base ID
-			__( 'MoExRate', 'moexrate' ), // Name
-			array( 'description' => __( 'Moscow Exchange currency rate', 'moexrate' ), ) // Args
-		);
-	}
-
-	public function widget( $args, $instance ) {
-		$limit    = 12;
-		$i        = $x = 0;
-		$currency = array();
-
-		$codes = array( 'USDRUB_TOM', 'EURRUB_TOM', 'EURRUB_TOD', 'USDRUB_TOD' );
-		foreach ( $codes as $code ) {
-			preg_match( "|([\w]+)_([\w]+)|i", $code, $mm );
-			$currency[ $mm[1] ]['price'] = moex_cache_get( $mm[1] . "_price" );
-			$currency[ $mm[1] ]['delta'] = moex_cache_get( $mm[1] . "_delta" );
-			$currency[ $mm[1] ]['time']  = moex_cache_get( $mm[1] . "_time" );
-		}
-
-		if ( empty( $currency['USDRUB']['price'] ) ) {
-			echo "1111";
-		}//"data empty ";
-		else {
-
-			$html =
-				"<div class='vcrates-wrapper'>" .
-				"<div class='vc-rates usd'>" .
-				"<div class='vc-rates-label'>&#8364;</div>" .
-				"<div class='vc-rates-value'> " .
-				$currency['USDRUB']['price'] . '<span class="vc-rates-' . ( $currency['USDRUB']['delta'] > 0 ? 'up' : 'downn' ) . '">' .
-				"</div>" .
-				"</div>" .
-				"<div class='vc-rates eur'>" .
-				"<div class='vc-rates-label'>&#36; </div>" .
-				"<div class='vc-rates-value'>" .
-				$currency['EURRUB']['price'] . '<span class="vc-rates-' . ( $currency['EURRUB']['delta'] > 0 ? 'up' : 'dn' ) . '">' .
-				"</div>" .
-				"</div>" .
-				"<div class='vc-rates oil'>" .
-				"<div class='vc-rates-label'>" .
-				'Нефть' .
-				"</div>" .
-				"<div class='vc-rates-value'>" .
-				//					$this->numberFormat($oil['value']) . '<span class="vc-rates-' . $oilDirection . '">' . $this->numberFormat($oil['diff']) . '</span>' .
-				"</div>" .
-				"</div>" .
-				"</div>";
-
-			echo $html;
-		}
-	}
-}
 function vitalCurrencyRatesShortcode() {
 	$currency = array();
 
