@@ -6,6 +6,7 @@
  * Author URI: http://ready2dev.ru
  * License: GPL2
  */
+require_once( plugin_dir_path( __FILE__ ) . 'inc/CurrencyRateProvider.php' );
 function moex_load2( $date1 ) {
 	$doc           = new DOMDocument();
 	$doc->encoding = "utf-8";
@@ -118,18 +119,22 @@ function vitalCurrencyRatesShortcode() {
 //			' : '' ) . '
 //		  </div>
 //			';
+
+		$currencyRateProvider = new \Pedectrian\CurrencyRateProvider();
+		$oil = $currencyRateProvider->get_oil();
+		$oilDirection = $oil['diff'] > 0 ? "up" : 'down';
 		$html =
 			"<div class='vcrates-wrapper'>" .
 				"<div class='vc-rates usd'>" .
 					"<div class='vc-rates-label'>&#8364;</div>" .
 					"<div class='vc-rates-value'> " .
-						$currency['USDRUB']['price'] . '<span class="vc-rates-' . ( $currency['USDRUB']['delta'] > 0 ? 'up' : 'downn' ) . '">' .
+						$currency['USDRUB']['price'] . '<span class="vc-rates-' . ( $currency['USDRUB']['delta'] > 0 ? 'up' : 'down' ) . '">' .
 					"</div>" .
 				"</div>" .
 				"<div class='vc-rates eur'>" .
 					"<div class='vc-rates-label'>&#36; </div>" .
 					"<div class='vc-rates-value'>" .
-						$currency['EURRUB']['price'] . '<span class="vc-rates-' . ( $currency['EURRUB']['delta'] > 0 ? 'up' : 'dn' ) . '">' .
+						$currency['EURRUB']['price'] . '<span class="vc-rates-' . ( $currency['EURRUB']['delta'] > 0 ? 'up' : 'down' ) . '">' .
 					"</div>" .
 				"</div>" .
 				"<div class='vc-rates oil'>" .
@@ -137,7 +142,7 @@ function vitalCurrencyRatesShortcode() {
 					'Нефть' .
 					"</div>" .
 					"<div class='vc-rates-value'>" .
-//					$this->numberFormat($oil['value']) . '<span class="vc-rates-' . $oilDirection . '">' . $this->numberFormat($oil['diff']) . '</span>' .
+						$oil['value'] . '<span class="vc-rates-' . $oilDirection . '"></span>' .
 					"</div>" .
 				"</div>" .
 			"</div>";

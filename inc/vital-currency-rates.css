@@ -20,13 +20,30 @@
   color: red;
 }
 .vc-rates-up:before {
-  content: " \2191 ";
+  display: inline-block;
+  width: 12px;
+  height: 8px;
+  background-position: 0px 0px;
+  background-image: url("./img/icons.png");
+  background-repeat: no-repeat;
 }
-
+.vc-rates-oil {
+  display: inline-block;
+  width: 7px;
+  height: 12px;
+  background-position: 0px -36px;
+  background-image: url("./img/icons.png");
+  background-repeat: no-repeat;
+}
 
 .vc-rates-down {
   color: green;
 }
 .vc-rates-down:before {
-  content: ' \2193 ';
+  display: inline-block;
+  width: 12px;
+  height: 8px;
+  background-position: 0px -18px;
+  background-image: url("../img/icons.png");
+  background-repeat: no-repeat;
 }
