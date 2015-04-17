@@ -1,11 +1,4 @@
 <?php
-/**
- * Plugin Name: Vital currency rates.
- * Version: 0.0.1
- * Author: Alexander Permyakov
- * Author URI: http://ready2dev.ru
- * License: GPL2
- */
 function moex_load2( $date1 ) {
 	$doc           = new DOMDocument();
 	$doc->encoding = "utf-8";
@@ -84,7 +77,6 @@ add_action( 'widgets_init', function () {
 
 add_action( 'init', 'register_moexrate_script' );
 function register_moexrate_script() {
-	die('asdf');
 	add_shortcode( 'vital_currency_rates1', 'vitalCurrencyRatesShortcode' );
 	wp_register_style( 'moex_style', plugins_url( 'style.css', __FILE__ ), false, '1.0.0', 'all' );
 }
