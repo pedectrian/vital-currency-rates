@@ -143,7 +143,7 @@ function vitalCurrencyRatesShortcode() {
 					"</div>" .
 					"<div class='vc-rates-value'>" .
 
-						$oil['value'] . '<span class="vc-rates-' . $oilDirection . '"></span>' .
+						number_format($oil['value'], 2, '.') . '<span class="vc-rates-' . $oilDirection . '"></span>' .
 					"</div>" .
 				"</div>" .
 			"</div>";
